@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Capa de Aplicación - Modelo OSI</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Capa de Aplicación</h1>
+
+    <form id="formAplicacion">
+      <div class="pregunta">
+        <label>1. ¿Qué protocolo pertenece a la capa de aplicación?</label>
+        <input type="text" id="preg1" required />
+      </div>
+
+      <div class="pregunta">
+        <label>2. ¿Verdadero o Falso? HTTP es un protocolo de la capa de aplicación.</label>
+        <select id="preg2" required>
+          <option value="">Seleccionar...</option>
+          <option value="Verdadero">Verdadero</option>
+          <option value="Falso">Falso</option>
+        </select>
+      </div>
+
+      <div class="pregunta">
+        <label>3. Nombre de un servicio típico de esta capa.</label>
+        <input type="text" id="preg3" required />
+      </div>
+
+      <button type="submit">Verificar</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <p><a href="capas.html">Volver al menú de capas</a></p>
+  </div>
+
+  <script>
+    // Bloquear acceso si no está desbloqueada esta capa
+    const progreso = JSON.parse(localStorage.getItem("progresoOSI")) || {};
+    if (!progreso.capa1) {
+      alert("No tenés acceso a esta capa. Volvé al menú principal.");
+      window.location.href = "capas.html";
+    }
+
+    document.getElementById("formAplicacion").addEventListener("submit", function(e) {
+      e.preventDefault();
+      let aciertos = 0;
+
+      const r1 = document.getElementById("preg1").value.trim().toLowerCase();
+      if (r1.includes("http") || r1.includes("ftp") || r1.includes("smtp")) aciertos++;
+
+      if (document.getElementById("preg2").value === "Verdadero") aciertos++;
+
+      const r3 = document.getElementById("preg3").value.trim().toLowerCase();
+      if (r3.includes("correo") || r3.includes("web") || r3.includes("ftp")) aciertos++;
+
+      const resultado = document.getElementById("resultado");
+
+      if (aciertos === 3) {
+        resultado.innerHTML = `
+          ✅ ¡Correcto!<br>
+          Código de desbloqueo para la siguiente capa: <strong>CAPA1-OK</strong>
+        `;
+        resultado.style.color = "green";
+
+        // Guardar desbloqueo en localStorage
+        progreso.capa2 = true;
+        localStorage.setItem("progresoOSI", JSON.stringify(progreso));
+      } else {
+        resultado.textContent = "❌ Algunas respuestas son incorrectas. Intentá de nuevo.";
+        resultado.style.color = "red";
+      }
+    });
+  </script>
+</body>
+</html>

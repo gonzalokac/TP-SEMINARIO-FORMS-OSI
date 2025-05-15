@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Menú Capas - Modelo OSI</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .capa { margin-bottom: 10px; }
+    .desbloqueado { color: green; }
+    .bloqueado { color: gray; }
+    #mensaje { margin-top: 10px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Menú Capas Modelo OSI</h1>
+  
+  <div id="listaCapas"></div>
+
+  <h2>Ingrese código para desbloquear siguiente capa:</h2>
+  <form id="formCodigo">
+    <input type="text" id="codigoInput" required />
+    <button type="submit">Desbloquear</button>
+  </form>
+  <div id="mensaje"></div>
+
+  <script>
+    const capas = [
+      { nombre: "Aplicación", codigo: "INICIO-OK", url: "capa1.html" },
+      { nombre: "Presentación", codigo: "CAPA1-OK", url: "capa2.html" },
+      { nombre: "Sesión", codigo: "CAPA2-OK", url: "capa3.html" },
+      { nombre: "Transporte", codigo: "CAPA3-OK", url: "capa4.html" },
+      { nombre: "Red", codigo: "CAPA4-OK", url: "capa5.html" },
+      { nombre: "Enlace de Datos", codigo: "CAPA5-OK", url: "capa6.html" },
+      { nombre: "Física", codigo: "CAPA6-OK", url: "capa7.html" }
+    ];
+
+    // Leer progreso o inicializar
+    let progreso = JSON.parse(localStorage.getItem("progreso")) || { Aplicación: true };
+
+    function mostrarCapas() {
+      const lista = document.getElementById("listaCapas");
+      lista.innerHTML = "";
+
+      capas.forEach((capa, index) => {
+        const desbloqueada = progreso[capa.nombre] === true;
+        const div = document.createElement("div");
+        div.classList.add("capa");
+        div.classList.add(desbloqueada ? "desbloqueado" : "bloqueado");
+        if (desbloqueada) {
+          div.innerHTML = `<a href="${capa.url}">${capa.nombre}</a>`;
+        } else {
+          div.textContent = `${capa.nombre} (bloqueada)`;
+        }
+        lista.appendChild(div);
+      });
+    }
+
+    function siguienteCapaDesbloquear() {
+      for (let capa of capas) {
+        if (!progreso[capa.nombre]) {
+          return capa;
+        }
+      }
+      return null; // todas desbloqueadas
+    }
+
+    document.getElementById("formCodigo").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const input = document.getElementById("codigoInput");
+      const codigoIngresado = input.value.trim();
+
+      const capaSiguiente = siguienteCapaDesbloquear();
+
+      if (!capaSiguiente) {
+        document.getElementById("mensaje").textContent = "¡Todas las capas ya están desbloqueadas!";
+        input.value = "";
+        return;
+      }
+
+      if (codigoIngresado === capaSiguiente.codigo) {
+        progreso[capaSiguiente.nombre] = true;
+        localStorage.setItem("progreso", JSON.stringify(progreso));
+        mostrarCapas();
+        document.getElementById("mensaje").textContent = `¡Capa "${capaSiguiente.nombre}" desbloqueada!`;
+      } else {
+        document.getElementById("mensaje").textContent = "Código incorrecto. Intente nuevamente.";
+      }
+      input.value = "";
+    });
+
+    mostrarCapas();
+  </script>
+</body>
+</html>
+

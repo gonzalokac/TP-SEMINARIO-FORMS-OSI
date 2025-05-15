@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inicio - Acceso al Juego OSI</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Bienvenido al Juego Modelo OSI</h1>
+    <p>Para comenzar, ingresá el código inicial:</p>
+    <form id="formInicio">
+      <input type="text" id="codigoInicio" placeholder="Ingresar código" required />
+      <button type="submit">Ingresar</button>
+    </form>
+    <div id="mensaje"></div>
+  </div>
+
+  <script>
+    const codigoInicial = "INICIO-OK";
+
+    document.getElementById("formInicio").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const codigo = document.getElementById("codigoInicio").value.trim().toUpperCase();
+      const mensaje = document.getElementById("mensaje");
+
+      if (codigo === codigoInicial) {
+        localStorage.setItem("capa1", "desbloqueada");
+        localStorage.setItem("progresoOSI", JSON.stringify({capa1: true}));
+        window.location.href = "capas.html";
+      } else {
+        mensaje.textContent = "Código incorrecto. Intentá de nuevo.";
+        mensaje.style.color = "red";
+      }
+    });
+  </script>
+</body>
+</html>
