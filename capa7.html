@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Capa Física</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <h1>Capa Física</h1>
+  <form id="formulario">
+    <ol>
+      <li>
+        <p>Acertijo: Se define con las especificaciones de esta capa, soy el conjunto tangible que permite la conexión física. ¿Quién soy?</p>
+        <input type="text" name="preg1">
+      </li>
+      <li>
+        <p>¿Cuál de estos medios pertenece a la capa física?</p>
+        <select name="preg2">
+          <option value="">-- Elegí una opción --</option>
+          <option value="fibra">Fibra óptica</option>
+          <option value="dns">DNS</option>
+          <option value="http">HTTP</option>
+        </select>
+      </li>
+      <li>
+        <p>¿Qué unidad de información se transmite en la capa física?</p>
+        <input type="text" name="preg3">
+      </li>
+      <li>
+        <p>¿Qué componente se asocia con esta capa?</p>
+        <input type="radio" name="preg4" value="repetidor"> Repetidor<br>
+        <input type="radio" name="preg4" value="router"> Router<br>
+        <input type="radio" name="preg4" value="switch"> Switch<br>
+      </li>
+      <li>
+        <p>Completá: Esta capa se encarga de la transmisión de ___ a través del medio físico.</p>
+        <input type="text" name="preg5">
+      </li>
+    </ol>
+    <button type="submit">Enviar</button>
+  </form>
+  <div id="resultado"></div>
+  <a href="capas.html">Volver al menú</a>
+  <script>
+    document.getElementById("formulario").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const form = e.target;
+      let correctas = 0;
+      
+      if (form.preg1.value.trim().toLowerCase().includes("hardware")) correctas++;
+      if (form.preg2.value === "fibra") correctas++;
+      if (form.preg3.value.trim().toLowerCase().includes("bit")) correctas++;
+      if (form.preg4.value === "repetidor") correctas++;
+      if (form.preg5.value.trim().toLowerCase().includes("señales")) correctas++;
+      const resultado = document.getElementById("resultado");
+      if (correctas === 5) {
+        resultado.innerHTML = `<p>¡Completaste el modelo OSI!</p><p><a href='victoria.html'>Ir a la página de victoria</a></p>`;
+        localStorage.setItem('victoria_osi', 'true');
+      } else {
+        resultado.innerHTML = `<p>Respuestas correctas: ${correctas}/5. Intentá de nuevo.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>

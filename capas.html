@@ -3,45 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <title>Menú Capas - Modelo OSI</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .capa { margin-bottom: 10px; }
-    .desbloqueado { color: green; }
-    .bloqueado { color: gray; }
-    #mensaje { margin-top: 10px; font-weight: bold; }
-  </style>
+  <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
-  <h1>Menú Capas Modelo OSI</h1>
-  
-  <div id="listaCapas"></div>
+  <div class="contenedor">
+    <h1>Menú Capas Modelo OSI</h1>
 
-  <h2>Ingrese código para desbloquear siguiente capa:</h2>
-  <form id="formCodigo">
-    <input type="text" id="codigoInput" required />
-    <button type="submit">Desbloquear</button>
-  </form>
-  <div id="mensaje"></div>
+    <div id="listaCapas"></div>
+
+    <h2>Ingrese código para desbloquear siguiente capa:</h2>
+    <form id="formCodigo">
+      <input type="text" id="codigoInput" required />
+      <button type="submit">Desbloquear</button>
+    </form>
+    <div id="mensaje"></div>
+
+    <button id="reiniciarBtn" style="margin-top:20px;">Reiniciar progreso</button>
+  </div>
 
   <script>
     const capas = [
-      { nombre: "Aplicación", codigo: "INICIO-OK", url: "capa1.html" },
-      { nombre: "Presentación", codigo: "CAPA1-OK", url: "capa2.html" },
-      { nombre: "Sesión", codigo: "CAPA2-OK", url: "capa3.html" },
-      { nombre: "Transporte", codigo: "CAPA3-OK", url: "capa4.html" },
-      { nombre: "Red", codigo: "CAPA4-OK", url: "capa5.html" },
-      { nombre: "Enlace de Datos", codigo: "CAPA5-OK", url: "capa6.html" },
-      { nombre: "Física", codigo: "CAPA6-OK", url: "capa7.html" }
+      { nombre: "Aplicación", codigo: null, url: "capa1.html" },
+      { nombre: "Presentación", codigo: "N3HUI", url: "capa2.html" },
+      { nombre: "Sesión", codigo: "ST4NC@", url: "capa3.html" },
+      { nombre: "Transporte", codigo: "V445#", url: "capa4.html" },
+      { nombre: "Red", codigo: "0303456", url: "capa5.html" },
+      { nombre: "Enlace de Datos", codigo: "/¡¡/", url: "capa6.html" },
+      { nombre: "Física", codigo: "AY🍕", url: "capa7.html" }
     ];
 
-    // Leer progreso o inicializar
-    let progreso = JSON.parse(localStorage.getItem("progreso")) || { Aplicación: true };
+    let progreso = JSON.parse(localStorage.getItem("progreso"));
+    if (!progreso) {
+      progreso = { "Aplicación": true };
+      localStorage.setItem("progreso", JSON.stringify(progreso));
+    }
 
     function mostrarCapas() {
       const lista = document.getElementById("listaCapas");
       lista.innerHTML = "";
 
-      capas.forEach((capa, index) => {
+      capas.forEach((capa) => {
         const desbloqueada = progreso[capa.nombre] === true;
         const div = document.createElement("div");
         div.classList.add("capa");
@@ -56,12 +57,12 @@
     }
 
     function siguienteCapaDesbloquear() {
-      for (let capa of capas) {
-        if (!progreso[capa.nombre]) {
-          return capa;
+      for (let i = 1; i < capas.length; i++) {
+        if (!progreso[capas[i].nombre]) {
+          return capas[i];
         }
       }
-      return null; // todas desbloqueadas
+      return null;
     }
 
     document.getElementById("formCodigo").addEventListener("submit", (e) => {
@@ -88,8 +89,15 @@
       input.value = "";
     });
 
+    document.getElementById("reiniciarBtn").addEventListener("click", () => {
+      localStorage.removeItem("progreso");
+      progreso = { "Aplicación": true };
+      localStorage.setItem("progreso", JSON.stringify(progreso));
+      mostrarCapas();
+      document.getElementById("mensaje").textContent = "Progreso reiniciado.";
+    });
+
     mostrarCapas();
   </script>
 </body>
 </html>
-

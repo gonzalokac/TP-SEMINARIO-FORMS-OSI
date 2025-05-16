@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Capa de Sesión</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <h1>Capa de Sesión</h1>
+  <form id="formulario">
+    <ol>
+      <li>
+        <p>Soy la capa que establece, mantiene y termina ___ entre dispositivos. ¿Qué soy?</p>
+        <input type="text" name="preg1">
+      </li>
+      <li>
+        <p>¿Cuál es una función de la Capa de Sesión?</p>
+        <select name="preg2">
+          <option value="">-- Elegí una opción --</option>
+          <option value="control_dialogo">Control de diálogo</option>
+          <option value="direccionamiento">Direccionamiento físico</option>
+          <option value="formateo">Formateo de datos</option>
+        </select>
+      </li>
+      <li>
+        <p>¿A quién afecta lo que hace esta capa?</p>
+        <input type="text" name="preg3">
+      </li>
+      <li>
+        <p>¿Entre qué cosas coordina la comunicación esta capa?</p>
+        <input type="radio" name="preg4" value="dispositivos"> Dispositivos finales<br>
+        <input type="radio" name="preg4" value="sistemas"> Sistemas<br>
+        <input type="radio" name="preg4" value="redes"> Redes<br>
+      </li>
+      <li>
+        <p>¿Qué tipo de servicios ofrece esta capa?</p>
+        <select name="preg5">
+          <option value="">-- Elegí una opción --</option>
+          <option value="sincronizacion">Sincronización</option>
+          <option value="control">Control</option>
+          <option value="transferencia">Transferencia</option>
+        </select>
+      </li>
+    </ol>
+    <button type="submit">Enviar</button>
+  </form>
+  <div id="resultado"></div>
+  <a href="capas.html">Volver al menú</a>
+  <script>
+    document.getElementById("formulario").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const form = e.target;
+      let correctas = 0;
+
+      if (form.preg1.value.trim().toLowerCase().includes("conexiones")) correctas++;
+      if (form.preg2.value === "control_dialogo") correctas++;
+      if (form.preg3.value.trim().toLowerCase().includes("dispositivos finales")) correctas++;
+      if (form.preg4.value === "sistemas") correctas++;
+      if (form.preg5.value === "sincronizacion") correctas++;
+
+      const resultado = document.getElementById("resultado");
+      if (correctas === 5) {
+        resultado.innerHTML = `<p>¡Correcto! Código de desbloqueo: <strong>V445#</strong></p>`;
+        localStorage.setItem('desbloqueo_capa4', 'true');
+      } else {
+        resultado.innerHTML = `<p>Respuestas correctas: ${correctas}/5. Intentá de nuevo.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>

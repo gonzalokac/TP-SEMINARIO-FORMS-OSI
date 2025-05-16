@@ -1,62 +1,152 @@
+/* Fondo animado para todo el sitio */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .contenedor {
-    max-width: 700px;
-    margin: 40px auto;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-  }
-  
-  h1 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .pregunta {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-  }
-  
-  input, select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  button {
-    padding: 12px 20px;
-    background-color: #0077cc;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    display: block;
-    margin: 0 auto;
-  }
-  
-  button:hover {
-    background-color: #005fa3;
-  }
-  
-  #resultado {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
+  font-family: Arial, sans-serif;
+  background: linear-gradient(-45deg, #83a4d4, #b6fbff, #d4fc79, #96e6a1);
+  background-size: 400% 400%;
+  animation: fondoAnimado 15s ease infinite;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Animación de fondo */
+@keyframes fondoAnimado {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Contenedor central para formularios o textos */
+.contenedor {
+  max-width: 700px;
+  margin: 50px auto;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  font-size: 18px;
+  line-height: 1.6;
+  animation: entrada 0.6s ease-out;
+}
+
+/* Animación de entrada */
+@keyframes entrada {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Títulos */
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #222;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Subtítulos */
+h2 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+/* Preguntas (formulario) */
+.pregunta {
+  margin-bottom: 25px;
+}
+
+/* Etiquetas */
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Inputs y selects */
+input, select {
+  width: 100%;
+  padding: 14px 12px;
+  margin-bottom: 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  box-sizing: border-box;
+}
+
+/* Botones */
+button {
+  padding: 14px 30px;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: block;
+  margin: 25px auto 0 auto;
+  min-width: 180px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+/* Resultado al final de formulario */
+#resultado, #mensaje {
+  margin-top: 30px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+  color: #222;
+}
+
+/* Enlace volver */
+p a {
+  display: inline-block;
+  margin-top: 40px;
+  font-size: 1.1rem;
+  color: #0077cc;
+  text-decoration: none;
+  padding: 12px 22px;
+  border: 2px solid #0077cc;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+p a:hover {
+  background-color: #0077cc;
+  color: white;
+}
+
+/* Menú de capas */
+#listaCapas {
+  margin-top: 20px;
+}
+
+.capa {
+  font-size: 1.2rem;
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin: 10px 0;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.capa a {
+  text-decoration: none;
+  color: #0077cc;
+  font-weight: bold;
+}
+
+.capa.bloqueado {
+  color: #aaa;
+  background-color: #eee;
+}
+
+.capa.desbloqueado {
+  color: green;
+}

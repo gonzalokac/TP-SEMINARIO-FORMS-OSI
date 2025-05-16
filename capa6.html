@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Capa de Enlace de Datos</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <h1>Capa de Enlace de Datos</h1>
+  <form id="formulario">
+    <ol>
+      <li>
+        <p> esta capa cambia mi forma de ser a algo más ¿En que me convierto?</p>
+        <input type="text" name="preg1">
+      </li>
+      <li>
+        <p>¿Cuál de los siguientes protocolos opera en la capa de enlace de datos?</p>
+        <select name="preg2">
+          <option value="">-- Elegí una opción --</option>
+          <option value="mac">MAC</option>
+          <option value="ip">IP</option>
+          <option value="tcp">TCP</option>
+        </select>
+      </li>
+      <li>
+        <p>¿de que a que se envían a través del medio físico en esta capa?</p>
+        <input type="text" name="preg3">
+      </li>
+      <li>
+        <p>¿Qué dispositivo trabaja principalmente en esta capa?</p>
+        <input type="radio" name="preg4" value="switch"> Switch<br>
+        <input type="radio" name="preg4" value="router"> Router<br>
+        <input type="radio" name="preg4" value="firewall"> Firewall<br>
+      </li>
+      <li>
+        <p>Completá: Esta capa transforma tramas en ___ para ser enviadas.</p>
+        <input type="text" name="preg5">
+      </li>
+    </ol>
+    <button type="submit">Enviar</button>
+  </form>
+  <div id="resultado"></div>
+  <a href="capas.html">Volver al menú</a>
+  <script>
+    document.getElementById("formulario").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const form = e.target;
+      let correctas = 0;
+      if (form.preg1.value.trim().toLowerCase().includes("trama")) correctas++;
+      if (form.preg2.value === "mac") correctas++;
+      let preg3 = form.preg3.value.trim().toLowerCase();
+      if (preg3 === "nodo" || preg3 === "nodos") correctas++;
+      if (form.preg4.value === "switch") correctas++;
+      if (form.preg5.value.trim().toLowerCase().includes("bits")) correctas++;
+      const resultado = document.getElementById("resultado");
+      if (correctas === 5) {
+        resultado.innerHTML = `<p>¡Correcto! Código de desbloqueo: <strong>AY🍕</strong></p>`;
+        localStorage.setItem('desbloqueo_capa7', 'true');
+      } else {
+        resultado.innerHTML = `<p>Respuestas correctas: ${correctas}/5. Intentá de nuevo.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>

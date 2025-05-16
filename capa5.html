@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Capa de Red</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <h1>Capa de Red</h1>
+  <form id="formulario">
+    <ol>
+      <li>
+        <p>Soy el guía del camino, decido qué ruta seguir. Si me falta, los paquetes se pueden perder. ¿Quién soy?</p>
+        <input type="text" name="preg1">
+      </li>
+      <li>
+        <p>¿Qué protocolo es característico de la capa de Red?</p>
+        <select name="preg2">
+          <option value="">-- Elegí una opción --</option>
+          <option value="ip">IP</option>
+          <option value="udp">UDP</option>
+          <option value="http">HTTP</option>
+        </select>
+      </li>
+      <li>
+        <p>¿Cuál es una función principal de la capa de Red?</p>
+        <input type="text" name="preg3">
+      </li>
+      <li>
+        <p>¿Cuál de estos dispositivos trabaja principalmente en la capa de Red?</p>
+        <input type="radio" name="preg4" value="router"> Router<br>
+        <input type="radio" name="preg4" value="switch"> Switch<br>
+        <input type="radio" name="preg4" value="hub"> Hub<br>
+      </li>
+      <li>
+        <p>¿Qué tipo de direccionamiento gestiona esta capa?</p>
+        <input type="text" name="preg5">
+      </li>
+    </ol>
+    <button type="submit">Enviar</button>
+  </form>
+  <div id="resultado"></div>
+  <a href="capas.html">Volver al menú</a>
+  <script>
+    document.getElementById("formulario").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const form = e.target;
+      let correctas = 0;
+      if (form.preg1.value.trim().toLowerCase().includes("red") || form.preg1.value.trim().toLowerCase().includes("ruta")) correctas++;
+      if (form.preg2.value === "ip") correctas++;
+      if (form.preg3.value.trim().toLowerCase().includes("direccionamiento") || form.preg3.value.trim().toLowerCase().includes("ruteo")) correctas++;
+      if (form.preg4.value === "router") correctas++;
+      if (form.preg5.value.trim().toLowerCase() === "lógico" || form.preg5.value.trim().toLowerCase() === "logico") correctas++;
+      const resultado = document.getElementById("resultado");
+      if (correctas === 5) {
+        resultado.innerHTML = `<p>¡Correcto! Código de desbloqueo: <strong>/¡¡/</strong></p>`;
+        localStorage.setItem('desbloqueo_capa6', 'true');
+      } else {
+        resultado.innerHTML = `<p>Respuestas correctas: ${correctas}/5. Intentá de nuevo.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>

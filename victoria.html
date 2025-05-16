@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¡Victoria!</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <h1>🎉 ¡Felicitaciones! 🎉</h1>
+  <p>Completaste con éxito todas las capas del modelo OSI.</p>
+  <p>Has demostrado tus conocimientos sobre redes y protocolos.</p>
+  <button onclick="reiniciar()">Reiniciar desafío</button>
+  <a href="capas.html">Volver al menú</a>
+
+  <script>
+    function reiniciar() {
+      localStorage.clear();
+      window.location.href = "capas.html";
+    }
+  </script>
+</body>
+</html>

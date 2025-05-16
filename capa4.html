@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Capa de Transporte</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <h1>Capa de Transporte</h1>
+  <form id="formulario">
+    <ol>
+      <li>
+        <p>Aseguro que los datos lleguen completos y en orden. No soy el mensajero, pero garantizo la entrega. ¿Quién soy?</p>
+        <input type="text" name="preg1">
+      </li>
+      <li>
+        <p>¿Cuál de estos protocolos opera en la capa de Transporte?</p>
+        <select name="preg2">
+          <option value="">-- Elegí una opción --</option>
+          <option value="tcp">TCP</option>
+          <option value="ip">IP</option>
+          <option value="ethernet">Ethernet</option>
+        </select>
+      </li>
+      <li>
+        <p>¿Qué mecanismo usa la capa de Transporte para controlar el flujo de datos?</p>
+        <input type="text" name="preg3">
+      </li>
+      <li>
+        <p>¿Cuál es una función de la Capa de Transporte?</p>
+        <input type="radio" name="preg4" value="multiplexion"> Multiplexión<br>
+        <input type="radio" name="preg4" value="direccionamiento"> Direccionamiento<br>
+        <input type="radio" name="preg4" value="sincronizacion"> Sincronización<br>
+      </li>
+      <li>
+        <p>¿Qué hace con los datos la capa de Transporte?</p>
+        <input type="text" name="preg5">
+      </li>
+    </ol>
+    <button type="submit">Enviar</button>
+  </form>
+  <div id="resultado"></div>
+  <a href="capas.html">Volver al menú</a>
+  <script>
+    document.getElementById("formulario").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const form = e.target;
+      let correctas = 0;
+
+      if (form.preg1.value.trim().toLowerCase().includes("segmentación")) correctas++;
+
+      if (form.preg2.value === "tcp") correctas++;
+
+      if (form.preg3.value.trim().toLowerCase().includes("control de flujo") || form.preg3.value.trim().toLowerCase().includes("ventana")) correctas++;
+
+      if (form.preg4.value === "multiplexion") correctas++;
+
+      const resp5 = form.preg5.value.trim().toLowerCase();
+      if (resp5.includes("reensambla") || resp5.includes("reensamblaje") || resp5.includes("reensamblado")) correctas++;
+
+      const resultado = document.getElementById("resultado");
+      if (correctas === 5) {
+        resultado.innerHTML = `<p>¡Correcto! Código de desbloqueo: <strong>0303456</strong></p>`;
+        localStorage.setItem('desbloqueo_capa5', 'true');
+      } else {
+        resultado.innerHTML = `<p>Respuestas correctas: ${correctas}/5. Intentá de nuevo.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>

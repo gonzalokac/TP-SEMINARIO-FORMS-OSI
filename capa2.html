@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Capa de Presentación</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <h1>Capa de Presentación</h1>
+  <form id="formulario">
+    <ol>
+      <li>
+        <p>Esta capa permite que diferentes sistemas entiendan los datos de forma común. ¿Qué concepto clave asegura que puedan trabajar juntos?</p>
+        <input type="text" name="preg1">
+      </li>
+      <li>
+        <p>¿Cuál de estas funciones realiza la Capa de Presentación?</p>
+        <select name="preg2">
+          <option value="">-- Elegí una opción --</option>
+          <option value="cifrado">Cifrado de datos</option>
+          <option value="direccionamiento">Direccionamiento lógico</option>
+          <option value="control_errores">Control de errores</option>
+        </select>
+      </li>
+      <li>
+        <p>¿Cuál es el objetivo de las tareas de la Capa de Presentación con los datos?</p>
+        <input type="text" name="preg3">
+      </li>
+      <li>
+        <p>¿Cuál de las siguientes es una tarea típica de la Capa de Presentación?</p>
+        <input type="radio" name="preg4" value="compresión"> Compresión de datos<br>
+        <input type="radio" name="preg4" value="segmentación"> Segmentación de datos<br>
+        <input type="radio" name="preg4" value="enrutamiento"> Enrutamiento<br>
+      </li>
+      <li>
+        <p>¿En qué medio se van a manejar los datos que utiliza la Capa de Presentación?</p>
+        <input type="text" name="preg5">
+      </li>
+    </ol>
+    <button type="submit">Enviar</button>
+  </form>
+  <div id="resultado"></div>
+  <a href="capas.html">Volver al menú</a>
+
+  <script>
+    document.getElementById("formulario").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const form = e.target;
+      let correctas = 0;
+
+      if (form.preg1.value.trim().toLowerCase().includes("interoperabilidad")) correctas++;
+
+      if (form.preg2.value === "cifrado") correctas++;
+
+      const resp3 = form.preg3.value.trim().toLowerCase();
+      if (resp3.includes("transmit") || resp3.includes("transmis")) correctas++;
+
+      if (form.preg4.value === "compresión") correctas++;
+
+      if (form.preg5.value.trim().toLowerCase().includes("red")) correctas++;
+
+      const resultado = document.getElementById("resultado");
+      if (correctas === 5) {
+        resultado.innerHTML = `<p>¡Correcto! Código de desbloqueo: <strong>ST4NC@</strong></p>`;
+      } else {
+        resultado.innerHTML = `<p>Respuestas correctas: ${correctas}/5. Intentá de nuevo.</p>`;
+      }
+    });
+  </script>
+</body>
+</html>
